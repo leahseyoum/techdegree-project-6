@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class Sql2oToDoDaoTest{
@@ -37,5 +38,46 @@ public class Sql2oToDoDaoTest{
         dao.addToDo(todo);
 
         assertNotEquals(originalId, todo.getId());
+    }
+
+    @Test
+    public void addedToDosAreReturnedFromFindAll() throws Exception{
+        ToDo todo = new ToDo("test", false);
+        dao.addToDo(todo);
+
+        assertEquals(1, dao.findAll().size());
+    }
+
+    @Test
+    public void noToDosReturnsEmptyList() throws Exception{
+        assertEquals(0, dao.findAll().size());
+    }
+
+    @Test
+    public void existingToDoCanBeFoundById() throws Exception{
+        ToDo todo = new ToDo("test", false);
+        dao.addToDo(todo);
+
+        ToDo foundToDo = dao.findById(todo.getId());
+
+        assertEquals(todo, foundToDo);
+    }
+
+    @Test
+    public void todoSuccessfullyDeletedById() throws Exception{
+        ToDo todo = new ToDo("test", false);
+        dao.addToDo(todo);
+
+        dao.deleteToDo(todo.getId());
+
+        assertEquals(0, dao.findAll().size());
+    }
+
+    @Test
+    public void todoSuccessfullyUpdatedById() throws Exception{
+        ToDo todo = new ToDo("test", false);
+        dao.addToDo(todo);
+
+
     }
 }

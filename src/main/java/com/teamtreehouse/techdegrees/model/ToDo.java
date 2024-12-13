@@ -5,11 +5,11 @@ import java.util.Objects;
 public class ToDo {
     private int id;
     private String name;
-    private boolean isCompleted;
+    private boolean is_completed;
 
-    public ToDo(String name, boolean isCompleted) {
+    public ToDo(String name, boolean is_completed) {
         this.name = name;
-        this.isCompleted = isCompleted;
+        this.is_completed = is_completed;
     }
 
     public int getId() {
@@ -21,11 +21,11 @@ public class ToDo {
     }
 
     public boolean isCompleted() {
-        return isCompleted;
+        return is_completed;
     }
 
     public void setCompleted(boolean completed) {
-        isCompleted = completed;
+        is_completed = completed;
     }
 
     public String getName() {
@@ -42,14 +42,14 @@ public class ToDo {
         if (o == null || getClass() != o.getClass()) return false;
 
         ToDo toDo = (ToDo) o;
-        return id == toDo.id && isCompleted == toDo.isCompleted && Objects.equals(name, toDo.name);
+        return id == toDo.id && is_completed == toDo.is_completed && name.equals(toDo.name);
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + Objects.hashCode(name);
-        result = 31 * result + Boolean.hashCode(isCompleted);
+        result = 31 * result + name.hashCode();
+        result = 31 * result + Boolean.hashCode(is_completed);
         return result;
     }
 }
