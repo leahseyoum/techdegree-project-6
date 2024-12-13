@@ -9,7 +9,7 @@ public interface ToDoDao {
     List<ToDo> findAll();
     ToDo findById(int id);
     void deleteToDo(int id);
-    ToDo updateToDo(int id);
+    void updateToDo(int id, String name, boolean isCompleted);
     // edit add method to throw Dao exception
     void addToDo(ToDo toDo) throws DaoException;
 }

@@ -57,7 +57,16 @@ public class Sql2oToDoDao implements ToDoDao{
     }
 
     @Override
-    public ToDo updateToDo(int id) {
-        return null;
+    public void updateToDo(int id, String name, boolean is_completed) {
+
+        String sql = "UPDATE todos SET name = :name, is_completed = :is_completed WHERE id = :id";
+
+        try(Connection con = sql2o.open()){
+             con.createQuery(sql)
+                    .addParameter("id", id)
+                    .addParameter("name", name)
+                    .addParameter("is_completed", is_completed)
+                    .executeUpdate();
+        }
     }
 }

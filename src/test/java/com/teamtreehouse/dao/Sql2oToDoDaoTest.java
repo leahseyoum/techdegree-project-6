@@ -2,10 +2,9 @@ package com.teamtreehouse.dao;
 
 import com.teamtreehouse.techdegrees.dao.Sql2oToDoDao;
 import com.teamtreehouse.techdegrees.model.ToDo;
-import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.After;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
@@ -76,8 +75,15 @@ public class Sql2oToDoDaoTest{
     @Test
     public void todoSuccessfullyUpdatedById() throws Exception{
         ToDo todo = new ToDo("test", false);
+        String originalName = todo.getName();
+        boolean originalStatus = todo.isCompleted();
         dao.addToDo(todo);
 
 
+        dao.updateToDo(todo.getId(), "change", true);
+        ToDo updatedToDO = dao.findById(todo.getId());
+
+        assertNotEquals(originalName, updatedToDO.getName());
+        assertNotEquals(originalStatus, updatedToDO.isCompleted());
     }
 }
